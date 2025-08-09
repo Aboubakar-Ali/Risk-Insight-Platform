@@ -43,7 +43,7 @@ risk-insight-platform/
 
 ```bash
 # 1. Cloner le projet
-git clone <votre-repository-url>
+git clone https://github.com/Aboubakar-Ali/Risk-Insight-Platform
 cd risk-insight-platform
 
 # 2. Configuration (optionnel)
@@ -250,8 +250,3 @@ cd frontend && npm run dev
 
 Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus de détails.
 
-## Support
-
-- Issues GitHub : [Lien vers le repository]
-- Documentation : [Lien vers la documentation]
-- Email : support@risk-insight.com 
