@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test APIs Risk Insight Platform</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test { margin: 20px 0; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test des APIs Risk Insight Platform</h1>
+    
+    <div class="test">
+        <h3>Test API Sites</h3>
+        <button onclick="testSites()">Tester /api/v1/sites</button>
+        <div id="sites-result"></div>
+    </div>
+
+    <div class="test">
+        <h3>Test API Météo</h3>
+        <button onclick="testWeather()">Tester /api/v1/weather/site/1</button>
+        <div id="weather-result"></div>
+    </div>
+
+    <div class="test">
+        <h3>Test API Catastrophes</h3>
+        <button onclick="testDisasters()">Tester /api/v1/disasters/site/1</button>
+        <div id="disasters-result"></div>
+    </div>
+
+    <div class="test">
+        <h3>Test API Vulnérabilité</h3>
+        <button onclick="testVulnerability()">Tester /api/v1/vulnerability/site/1</button>
+        <div id="vulnerability-result"></div>
+    </div>
+
+    <div class="test">
+        <h3>Test API Risque Global</h3>
+        <button onclick="testComprehensiveRisk()">Tester /api/v1/comprehensive-risk/site/1</button>
+        <div id="comprehensive-risk-result"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8000/api/v1';
+
+        async function testAPI(endpoint, resultId) {
+            const resultDiv = document.getElementById(resultId);
+            resultDiv.innerHTML = '<p>⏳ Test en cours...</p>';
+            
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`);
+                const data = await response.json();
+                
+                resultDiv.className = 'success';
+                resultDiv.innerHTML = `
+                    <p>✅ Succès (${response.status})</p>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                resultDiv.className = 'error';
+                resultDiv.innerHTML = `
+                    <p>❌ Erreur: ${error.message}</p>
+                    <p>Détails: ${error}</p>
+                `;
+            }
+        }
+
+        function testSites() {
+            testAPI('/sites', 'sites-result');
+        }
+
+        function testWeather() {
+            testAPI('/weather/site/1', 'weather-result');
+        }
+
+        function testDisasters() {
+            testAPI('/disasters/site/1', 'disasters-result');
+        }
+
+        function testVulnerability() {
+            testAPI('/vulnerability/site/1', 'vulnerability-result');
+        }
+
+        function testComprehensiveRisk() {
+            testAPI('/comprehensive-risk/site/1', 'comprehensive-risk-result');
+        }
+    </script>
+</body>
+</html> 
