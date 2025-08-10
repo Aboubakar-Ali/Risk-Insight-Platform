@@ -1,21 +1,21 @@
-Write-Host "🧪 Test de l'API Risk Insight Platform" -ForegroundColor Green
+Write-Host " Test de l'API Risk Insight Platform" -ForegroundColor Green
 
 # Test 1: Health check
 Write-Host "`n1. Test du health check..." -ForegroundColor Yellow
 try {
     $response = Invoke-RestMethod -Uri "http://localhost:8000/health" -Method GET
-    Write-Host "✅ Health check OK: $($response.status)" -ForegroundColor Green
+    Write-Host " Health check OK: $($response.status)" -ForegroundColor Green
 } catch {
-    Write-Host "❌ Health check échoué: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host " Health check échoué: $($_.Exception.Message)" -ForegroundColor Red
 }
 
 # Test 2: Liste des sites
 Write-Host "`n2. Test de la liste des sites..." -ForegroundColor Yellow
 try {
     $response = Invoke-RestMethod -Uri "http://localhost:8000/api/v1/sites" -Method GET
-    Write-Host "✅ Liste des sites OK: $($response.Count) sites trouvés" -ForegroundColor Green
+    Write-Host " Liste des sites OK: $($response.Count) sites trouvés" -ForegroundColor Green
 } catch {
-    Write-Host "❌ Liste des sites échoué: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host " Liste des sites échoué: $($_.Exception.Message)" -ForegroundColor Red
 }
 
 # Test 3: Création d'un site
@@ -36,16 +36,16 @@ $siteData = @{
 
 try {
     $response = Invoke-RestMethod -Uri "http://localhost:8000/api/v1/sites" -Method POST -ContentType "application/json" -Body $siteData
-    Write-Host "✅ Création de site OK: Site créé avec ID $($response.id)" -ForegroundColor Green
+    Write-Host " Création de site OK: Site créé avec ID $($response.id)" -ForegroundColor Green
 } catch {
-    Write-Host "❌ Création de site échoué: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host " Création de site échoué: $($_.Exception.Message)" -ForegroundColor Red
 }
 
 # Test 4: Vérification du site créé
 Write-Host "`n4. Vérification du site créé..." -ForegroundColor Yellow
 try {
     $response = Invoke-RestMethod -Uri "http://localhost:8000/api/v1/sites" -Method GET
-    Write-Host "✅ Sites trouvés: $($response.Count)" -ForegroundColor Green
+    Write-Host " Sites trouvés: $($response.Count)" -ForegroundColor Green
     if ($response.Count -gt 0) {
         $site = $response[0]
         Write-Host "   - Nom: $($site.name)" -ForegroundColor Cyan
@@ -53,8 +53,8 @@ try {
         Write-Host "   - Score de risque: $($site.risk_score)" -ForegroundColor Cyan
     }
 } catch {
-    Write-Host "❌ Vérification échouée: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host " Vérification échouée: $($_.Exception.Message)" -ForegroundColor Red
 }
 
-Write-Host "`n🎯 Tests terminés !" -ForegroundColor Green
-Write-Host "📱 Accès à la documentation API: http://localhost:8000/docs" -ForegroundColor Cyan 
+Write-Host "`n Tests terminés !" -ForegroundColor Green
+Write-Host " Accès à la documentation API: http://localhost:8000/docs" -ForegroundColor Cyan 

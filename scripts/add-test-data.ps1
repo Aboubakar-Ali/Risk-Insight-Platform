@@ -1,4 +1,4 @@
-Write-Host "📊 Ajout de données de test à Risk Insight Platform" -ForegroundColor Green
+Write-Host " Ajout de données de test à Risk Insight Platform" -ForegroundColor Green
 
 # Données de test
 $testSites = @(
@@ -56,7 +56,7 @@ $testSites = @(
     }
 )
 
-Write-Host "`n🏢 Création de $($testSites.Count) sites de test..." -ForegroundColor Yellow
+Write-Host "`n Création de $($testSites.Count) sites de test..." -ForegroundColor Yellow
 
 $createdSites = @()
 
@@ -65,17 +65,17 @@ foreach ($site in $testSites) {
         $jsonData = $site | ConvertTo-Json
         $response = Invoke-RestMethod -Uri "http://localhost:8000/api/v1/sites" -Method POST -ContentType "application/json" -Body $jsonData
         $createdSites += $response
-        Write-Host "✅ Site créé: $($site.name) (ID: $($response.id))" -ForegroundColor Green
+        Write-Host " Site créé: $($site.name) (ID: $($response.id))" -ForegroundColor Green
     } catch {
-        Write-Host "❌ Erreur lors de la création de $($site.name): $($_.Exception.Message)" -ForegroundColor Red
+        Write-Host " Erreur lors de la création de $($site.name): $($_.Exception.Message)" -ForegroundColor Red
     }
 }
 
-Write-Host "`n📋 Résumé des sites créés:" -ForegroundColor Cyan
+Write-Host "`n Résumé des sites créés:" -ForegroundColor Cyan
 foreach ($site in $createdSites) {
     Write-Host "   - $($site.name) ($($site.city)) - Score de risque: $($site.risk_score)" -ForegroundColor White
 }
 
-Write-Host "`n🎯 Données de test ajoutées avec succès !" -ForegroundColor Green
-Write-Host "📱 Accès à l'application: http://localhost:3000" -ForegroundColor Cyan
-Write-Host "📚 Documentation API: http://localhost:8000/docs" -ForegroundColor Cyan 
+Write-Host "`n Données de test ajoutées avec succès !" -ForegroundColor Green
+Write-Host " Accès à l'application: http://localhost:3000" -ForegroundColor Cyan
+Write-Host " Documentation API: http://localhost:8000/docs" -ForegroundColor Cyan 

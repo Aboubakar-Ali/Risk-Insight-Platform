@@ -1,12 +1,12 @@
-Write-Host "📋 Ajout de contrats d'assurance pour les sites existants" -ForegroundColor Green
+Write-Host " Ajout de contrats d'assurance pour les sites existants" -ForegroundColor Green
 
 # Récupérer d'abord la liste des sites
-Write-Host "`n🏢 Récupération des sites existants..." -ForegroundColor Yellow
+Write-Host "`n Récupération des sites existants..." -ForegroundColor Yellow
 try {
     $sitesResponse = Invoke-RestMethod -Uri "http://localhost:8000/api/v1/sites" -Method GET
-    Write-Host "✅ Sites trouvés: $($sitesResponse.Count)" -ForegroundColor Green
+    Write-Host " Sites trouvés: $($sitesResponse.Count)" -ForegroundColor Green
 } catch {
-    Write-Host "❌ Erreur lors de la récupération des sites: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host " Erreur lors de la récupération des sites: $($_.Exception.Message)" -ForegroundColor Red
     exit 1
 }
 
@@ -28,9 +28,9 @@ foreach ($site in $sitesResponse) {
         $jsonData = $contractData | ConvertTo-Json
         $response = Invoke-RestMethod -Uri "http://localhost:8000/api/v1/contracts" -Method POST -ContentType "application/json" -Body $jsonData
         $createdContracts += $response
-        Write-Host "✅ Contrat créé pour $($site.name): $($contractData.contract_number)" -ForegroundColor Green
+        Write-Host " Contrat créé pour $($site.name): $($contractData.contract_number)" -ForegroundColor Green
     } catch {
-        Write-Host "❌ Erreur lors de la création du contrat pour $($site.name): $($_.Exception.Message)" -ForegroundColor Red
+        Write-Host " Erreur lors de la création du contrat pour $($site.name): $($_.Exception.Message)" -ForegroundColor Red
     }
 }
 
@@ -39,5 +39,5 @@ foreach ($contract in $createdContracts) {
     Write-Host "   - $($contract.contract_number) - Prime: $($contract.premium_amount)€" -ForegroundColor White
 }
 
-Write-Host "`n🎯 Contrats d'assurance ajoutés avec succès !" -ForegroundColor Green
-Write-Host "📱 Accès à l'application: http://localhost:3000" -ForegroundColor Cyan 
+Write-Host "`n Contrats d'assurance ajoutés avec succès !" -ForegroundColor Green
+Write-Host " Accès à l'application: http://localhost:3000" -ForegroundColor Cyan 
